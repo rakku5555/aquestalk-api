@@ -63,7 +63,7 @@ class aquestalk2:
         if self.phont_ptr is None:
             raise RuntimeError(f"Phontファイルの読み込みに失敗しました: {phont_file}")
 
-    async def get_audio(self) -> bytes:
+    def get_audio(self) -> bytes:
         size = ctypes.c_int(0)
 
         self.wav_data = self.aquestalk.AquesTalk2_Synthe_Utf8(self.text.encode(), self.speed, ctypes.byref(size), self.phont_ptr)
@@ -128,7 +128,7 @@ class aquestalk10:
             self.aquestalk.AquesTalk_SetDevKey(Config.load_config()['dev_key']['aquestalk10'].encode())
         self._initialized = True
 
-    async def get_audio(self) -> bytes:
+    def get_audio(self) -> bytes:
         try:
             size = ctypes.c_int(0)
             self.wav_data = self.aquestalk.AquesTalk_Synthe_Utf8(ctypes.byref(self.aqtk_voice), self.text.encode(), ctypes.byref(size))
